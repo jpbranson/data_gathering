@@ -1,0 +1,10 @@
+Package: data.gathering
+Title: Github Actions to Scrape Various Data Sources
+Version: 0.0.0.9000
+Authors@R: 
+    person("Joseph", "Branson", , "jpbranson@gmail.com", role = c("aut", "cre"))
+Description: Using Github Actions to scrape various interesting data sources
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
