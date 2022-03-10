@@ -2,7 +2,7 @@ on:
   schedule:
     - cron: "10,25,40,55 * * * *"
   push:
-    branches: main
+    branches: master
 
 jobs:
   generate-data:
