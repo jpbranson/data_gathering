@@ -1,0 +1,62 @@
+---
+title: "uncletopia_viz"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(jsonlite)
+library(lubridate)
+```
+
+```{r}
+log_files <- paste0("./data/uncletopia/", list.files("./data/uncletopia", pattern = ".json"))
+
+read_json(paste0("./data/uncletopia/", log_files[1]))$data[[1]]
+
+log_df <-  paste0("./data/uncletopia/", list.files("./data/uncletopia", pattern = ".json")) %>%
+  map_dfr(function(x) fromJSON(x)[["data"]] %>% mutate(name= x))
+
+log_df %>% flatten() %>% names()
+```
+
+```{r}
+log_df %>%
+  flatten() %>%
+  mutate(time = str_replace(name, "./data/uncletopia/X", ""),
+         time = str_replace(time, ".json", ""),
+         time = parse_date_time(time, "%Y.%m.%d.%H.%M.%S")) %>%
+  mutate(name_short = fct_reorder(name_short, region)) %>%
+  filter(state.PlayersCount != 0) %>%
+  ggplot(aes(x = name_short, y = time, size = state.PlayersCount)) +
+  geom_point(alpha = 0.5) +
+  coord_flip()
+  
+log_df %>%
+  flatten() %>%
+  mutate(time = str_replace(name, "./data/uncletopia/X", ""),
+         time = str_replace(time, ".json", ""),
+         time = parse_date_time(time, "%Y.%m.%d.%H.%M.%S") %>% with_tz("US/Central")) %>%
+  group_by(region, time) %>%
+  summarise(players = sum(a2s.Players),
+            n = n()) %>%
+  mutate(avg = players / n) %>%
+  ggplot(aes(x = time, y = avg, col = region)) +
+  geom_line() +
+  geom_smooth(se = F) +
+  facet_wrap(~region)
+```
+
+these drop offs must be map changes right?
+```{r}
+log_df %>%
+  flatten() %>%
+  mutate(time = str_replace(name, "./data/uncletopia/X", ""),
+         time = str_replace(time, ".json", ""),
+         time = parse_date_time(time, "%Y.%m.%d.%H.%M.%S")) %>%
+  filter(region == "au")
+
+
+```
+
