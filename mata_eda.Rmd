@@ -1,0 +1,56 @@
+---
+title: "mata_eda"
+output: html_document
+date: '2022-03-17'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(jsonlite)
+```
+
+```{r}
+mata.topo <- read_json("https://mata.cadavl.com:4437/SWIV/MATA/proxy/restWS/topo/")
+```
+
+```{r}
+mata.topo %>% str()
+```
+```{r}
+mata.topo.refresh <- read_json("https://mata.cadavl.com:4437/SWIV/MATA/proxy/restWS/topo/refresh?_tmp=1647480334425")
+
+16474815460000
+
+mata.topo.refresh.later <- read_json("https://mata.cadavl.com:4437/SWIV/MATA/proxy/restWS/topo/refresh?_tmp=1647394829000")
+
+mata.topo.refresh.later <- read_json("https://mata.cadavl.com:4437/SWIV/MATA/proxy/restWS/topo/refresh?_tmp=16474815460000")
+```
+
+```{r}
+
+element <- mata.topo$topo[[1]]$pointArret[[1]] %>% unlist()
+
+
+for (i in seq_along(mata.topo$topo[[1]]$pointArret)) {
+  name = mata.topo$topo[[1]]$pointArret[[i]]$nomCommercial
+  lines <- mata.topo$topo[[1]]$pointArret[[i]]$infoLigneSwiv
+  for (j in seq_along(lines)) {
+    data.frame(name = )
+  }
+}
+
+
+map_dbl(.x = mata.topo$topo[[1]]$pointArret, .f = function(x) length(x$infoLigneSwiv))
+
+stops_df <- map_dfr(.x = mata.topo$topo[[1]]$pointArret, .f = unlist)
+
+
+mata.topo$topo[[1]]$pointArret %>% str()
+
+
+stop.id <- stops_df$idPointArret %>% unique()
+
+sample(stop.id, 1)
+```
+

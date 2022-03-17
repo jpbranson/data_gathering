@@ -46,9 +46,24 @@ log_df %>%
   geom_line() +
   geom_smooth(se = F) +
   facet_wrap(~region)
+
+log_df %>%
+  flatten() %>%
+  mutate(time = str_replace(name, "./data/uncletopia/X", ""),
+         time = str_replace(time, ".json", ""),
+         time = parse_date_time(time, "%Y.%m.%d.%H.%M.%S") %>% with_tz("US/Central")) %>%
+  group_by(region, time) %>%
+  summarise(players = sum(a2s.Players),
+            n = n()) %>%
+  mutate(avg = players / n) %>%
+  ggplot(aes(x = time, y = avg, col = region)) +
+  geom_line() +
+  geom_smooth(se = F) +
+  facet_wrap(~region)
 ```
 
 these drop offs must be map changes right?
+
 ```{r}
 log_df %>%
   flatten() %>%
@@ -59,4 +74,3 @@ log_df %>%
 
 
 ```
-
