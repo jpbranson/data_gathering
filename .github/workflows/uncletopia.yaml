@@ -33,9 +33,14 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
 
-      - name: Generate data
+      - name: Uncletopia
         run: |
           source("R/uncletopia.R")
+        shell: Rscript {0}
+
+      - name: MATA
+        run: |
+          source("R/mata.R")
         shell: Rscript {0}
 
       - name: Commit files

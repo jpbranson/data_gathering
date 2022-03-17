@@ -51,6 +51,10 @@ mata.topo$topo[[1]]$pointArret %>% str()
 
 stop.id <- stops_df$idPointArret %>% unique()
 
+
+
 sample(stop.id, 1)
 ```
+
+
 
