@@ -14,5 +14,9 @@ download.file(paste0("https://mata.cadavl.com:4437/SWIV/MATA/proxy/restWS/topo/r
 download.file(paste0("https://mata.cadavl.com:4437/SWIV/MATA/proxy/restWS/iv/message?_tmp=", tmp), destfile = paste0("data/mata/", "message-", make.names(Sys.time()), "-", tmp, ".json"))
 
 for(i in seq_along(stop.id)) {
-  download.file(paste0("https://mata.cadavl.com:4437/SWIV/MATA/proxy/restWS/horaires/pta/", stop.id[i], "?_tmp="), destfile = paste0("data/mata/", "pta-horaire-", stop.id[i], "-", make.names(Sys.time()), "-", tmp, ".json"))
+  tryCatch(
+    download.file(paste0("https://mata.cadavl.com:4437/SWIV/MATA/proxy/restWS/horaires/pta/", stop.id[i], "?_tmp=", tmp), destfile = paste0("data/mata/", "pta-horaire-", stop.id[i], "-", make.names(Sys.time()), "-", tmp, ".json")),
+    next
+  )
+
 }
