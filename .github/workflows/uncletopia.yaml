@@ -43,6 +43,11 @@ jobs:
           source("R/mata.R")
         shell: Rscript {0}
 
+      - name: Madness
+        run: |
+          source("R/madness.R")
+        shell: Rscript {0}
+
       - name: Commit files
         run: |
           git config --local user.email "actions@github.com"
