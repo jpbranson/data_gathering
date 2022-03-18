@@ -27,18 +27,14 @@ for (i in seq_along(list.files(path = "data/madness/", pattern = ".html"))) {
 
 colnames(mad.df) <- c("name", "prob_first", "prob_second", "prob_third", "points", "rank", "file")
   
-```
 
-```{r}
 mad.df.clean <- mad.df %>%
   mutate(time = str_replace(file, "X", ""),
          time = str_replace(time, ".html", ""),
          time = parse_date_time(time, "%Y.%m.%d.%H.%M.%S") %>% with_tz(tzone = "US/Central")) %>%
   mutate(across(.cols = c("prob_first", "prob_second", "prob_third", "points", "rank"), .fns = as.numeric))
   
-```
 
-```{r}
 {mad.df.clean %>%
   pivot_longer(cols = c("prob_first", "prob_second", "prob_third", "points", "rank"), names_to = "metric") %>%
   ggplot(aes(x = time, y = value, col = name)) +
