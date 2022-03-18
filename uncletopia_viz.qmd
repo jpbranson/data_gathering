@@ -11,14 +11,14 @@ library(lubridate)
 ```
 
 ```{r}
-log_files <- paste0("./data/uncletopia/", list.files("./data/uncletopia", pattern = ".json"))
-
-read_json(paste0("./data/uncletopia/", log_files[1]))$data[[1]]
+# log_files <- paste0("./data/uncletopia/", list.files("./data/uncletopia", pattern = ".json"))
+# 
+# read_json(paste0("./data/uncletopia/", log_files[1]))$data[[1]]
 
 log_df <-  paste0("./data/uncletopia/", list.files("./data/uncletopia", pattern = ".json")) %>%
   map_dfr(function(x) fromJSON(x)[["data"]] %>% mutate(name= x))
 
-log_df %>% flatten() %>% names()
+# log_df %>% flatten() %>% names()
 ```
 
 ```{r}
@@ -42,7 +42,7 @@ log_df %>%
   summarise(players = sum(a2s.Players),
             n = n()) %>%
   mutate(avg = players / n) %>%
-  ggplot(aes(x = time, y = avg, col = region)) +
+  ggplot(aes(x = time, y = players, col = region)) +
   geom_line() +
   geom_smooth(se = F) +
   facet_wrap(~region)
