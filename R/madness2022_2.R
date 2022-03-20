@@ -43,116 +43,148 @@ silver$jbteam <- gsub("10 - Miami (FL)","10 - Miami",silver$jbteam,fixed=TRUE) #
 
 
 Simulate_old <- function(Y) {
-	# Simulate a likely reality
-	silver$win_rd1 <- is.element(silver$jbteam, sapply(unique(silver$rd1), function(z) {
-		sample(silver$jbteam[silver$rd1==z], prob=silver$rd1_win[silver$rd1==z], size=1)
-	}))
-	silver$prob_rd2 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd1[z],0,sum(silver$rd2_win[silver$rd1==silver$rd1[z]]))})
+  # Simulate a likely reality
+  silver$win_rd1 <- is.element(silver$jbteam, sapply(unique(silver$rd1), function(z) {
+    sample(silver$jbteam[silver$rd1==z], prob=silver$rd1_win[silver$rd1==z], size=1)
+  }))
+  silver$prob_rd2 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd1[z],0,sum(silver$rd2_win[silver$rd1==silver$rd1[z]]))})
 
-	silver$win_rd2 <- is.element(silver$jbteam, sapply(unique(silver$rd2), function(z) {
-		sample(silver$jbteam[silver$rd2==z], prob=silver$prob_rd2[silver$rd2==z], size=1)
-	}))
-	silver$prob_rd3 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd2[z],0,sum(silver$rd3_win[silver$rd2==silver$rd2[z]]))})
+  silver$win_rd2 <- is.element(silver$jbteam, sapply(unique(silver$rd2), function(z) {
+    sample(silver$jbteam[silver$rd2==z], prob=silver$prob_rd2[silver$rd2==z], size=1)
+  }))
+  silver$prob_rd3 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd2[z],0,sum(silver$rd3_win[silver$rd2==silver$rd2[z]]))})
 
-	silver$win_rd3 <- is.element(silver$jbteam, sapply(unique(silver$rd3), function(z) {
-		sample(silver$jbteam[silver$rd3==z], prob=silver$prob_rd3[silver$rd3==z], size=1)
-	}))
-	silver$prob_rd4 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd3[z],0,sum(silver$rd4_win[silver$rd3==silver$rd3[z]]))})
+  silver$win_rd3 <- is.element(silver$jbteam, sapply(unique(silver$rd3), function(z) {
+    sample(silver$jbteam[silver$rd3==z], prob=silver$prob_rd3[silver$rd3==z], size=1)
+  }))
+  silver$prob_rd4 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd3[z],0,sum(silver$rd4_win[silver$rd3==silver$rd3[z]]))})
 
-	silver$win_rd4 <- is.element(silver$jbteam, sapply(unique(silver$rd4), function(z) {
-		sample(silver$jbteam[silver$rd4==z], prob=silver$prob_rd4[silver$rd4==z], size=1)
-	}))
-	silver$prob_rd5 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd4[z],0,sum(silver$rd5_win[silver$rd4==silver$rd4[z]]))})
+  silver$win_rd4 <- is.element(silver$jbteam, sapply(unique(silver$rd4), function(z) {
+    sample(silver$jbteam[silver$rd4==z], prob=silver$prob_rd4[silver$rd4==z], size=1)
+  }))
+  silver$prob_rd5 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd4[z],0,sum(silver$rd5_win[silver$rd4==silver$rd4[z]]))})
 
-	silver$win_rd5 <- is.element(silver$jbteam, sapply(unique(silver$rd5), function(z) {
-		sample(silver$jbteam[silver$rd5==z], prob=silver$prob_rd5[silver$rd5==z], size=1)
-	}))
-	silver$prob_rd6 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd5[z],0,sum(silver$rd6_win[silver$rd5==silver$rd5[z]]))})
+  silver$win_rd5 <- is.element(silver$jbteam, sapply(unique(silver$rd5), function(z) {
+    sample(silver$jbteam[silver$rd5==z], prob=silver$prob_rd5[silver$rd5==z], size=1)
+  }))
+  silver$prob_rd6 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd5[z],0,sum(silver$rd6_win[silver$rd5==silver$rd5[z]]))})
 
-	silver$win_rd6 <- is.element(silver$jbteam, sapply(unique(silver$rd6), function(z) {
-		sample(silver$jbteam[silver$rd6==z], prob=silver$prob_rd6[silver$rd6==z], size=1)
-	}))
-	silver$prob_rd7 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd6[z],0,sum(silver$rd7_win[silver$rd6==silver$rd6[z]]))})
+  silver$win_rd6 <- is.element(silver$jbteam, sapply(unique(silver$rd6), function(z) {
+    sample(silver$jbteam[silver$rd6==z], prob=silver$prob_rd6[silver$rd6==z], size=1)
+  }))
+  silver$prob_rd7 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd6[z],0,sum(silver$rd7_win[silver$rd6==silver$rd6[z]]))})
 
-	silver$win_rd7 <- is.element(silver$jbteam, sapply(unique(silver$rd7), function(z) {
-		sample(silver$jbteam[silver$rd7==z], prob=silver$prob_rd7[silver$rd7==z], size=1)
-	}))
+  silver$win_rd7 <- is.element(silver$jbteam, sapply(unique(silver$rd7), function(z) {
+    sample(silver$jbteam[silver$rd7==z], prob=silver$prob_rd7[silver$rd7==z], size=1)
+  }))
 
-	# Use this outcome as a possibility - Calculate expected points of that reality
+  # Use this outcome as a possibility - Calculate expected points of that reality
 
-	pts <- sum(silver$win_rd7*(200+10*as.integer(substr(silver$team_seed,1,2)))*silver$rd7_win +
-	silver$win_rd6*(140+7*as.integer(substr(silver$team_seed,1,2)))*silver$rd6_win +
-	silver$win_rd5*(100+5*as.integer(substr(silver$team_seed,1,2)))*silver$rd5_win +
-	silver$win_rd4*(75+3*as.integer(substr(silver$team_seed,1,2)))*silver$rd4_win +
-	silver$win_rd3*(40+2*as.integer(substr(silver$team_seed,1,2)))*silver$rd3_win +
-	silver$win_rd2*(20+1*as.integer(substr(silver$team_seed,1,2)))*silver$rd2_win +
-	silver$win_rd1*(20+0*as.integer(substr(silver$team_seed,1,2)))*silver$rd1_win*(silver$playin_flag))
+  pts <- sum(silver$win_rd7*(200+10*as.integer(substr(silver$team_seed,1,2)))*silver$rd7_win +
+               silver$win_rd6*(140+7*as.integer(substr(silver$team_seed,1,2)))*silver$rd6_win +
+               silver$win_rd5*(100+5*as.integer(substr(silver$team_seed,1,2)))*silver$rd5_win +
+               silver$win_rd4*(75+3*as.integer(substr(silver$team_seed,1,2)))*silver$rd4_win +
+               silver$win_rd3*(40+2*as.integer(substr(silver$team_seed,1,2)))*silver$rd3_win +
+               silver$win_rd2*(20+1*as.integer(substr(silver$team_seed,1,2)))*silver$rd2_win +
+               silver$win_rd1*(20+0*as.integer(substr(silver$team_seed,1,2)))*silver$rd1_win*(silver$playin_flag))
 
-	data.frame(rbind(c(silver$jbteam[silver$win_rd1 & silver$playin_flag],
-	  silver$jbteam[silver$win_rd2],
-	  silver$jbteam[silver$win_rd3],
-	  silver$jbteam[silver$win_rd4],
-	  silver$jbteam[silver$win_rd5],
-	  silver$jbteam[silver$win_rd6],
-	  silver$jbteam[silver$win_rd7],pts)))
+  data.frame(rbind(c(silver$jbteam[silver$win_rd1 & silver$playin_flag],
+                     silver$jbteam[silver$win_rd2],
+                     silver$jbteam[silver$win_rd3],
+                     silver$jbteam[silver$win_rd4],
+                     silver$jbteam[silver$win_rd5],
+                     silver$jbteam[silver$win_rd6],
+                     silver$jbteam[silver$win_rd7],pts)))
 
 }
 
 Simulate_new <- function(Y) {
-# Simulate a likely reality
-	silver$win_rd1 <- is.element(silver$jbteam, sapply(unique(silver$rd1), function(z) {
-		sample(silver$jbteam[silver$rd1==z], prob=silver$rd1_win[silver$rd1==z], size=1)
-	}))
-	silver$prob_rd2 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd1[z],0,ifelse(!silver$playin_flag[z],silver$rd2_win[z],1/(1+10^(-1*(silver$team_rating[z]-silver$team_rating[setdiff(which(silver$rd2==silver$rd2[z] & silver$win_rd1),z)])*30.464/400)) ))})
+  # Simulate a likely reality
+  silver$win_rd1 <- is.element(silver$jbteam, sapply(unique(silver$rd1), function(z) {
+    sample(silver$jbteam[silver$rd1==z], prob=silver$rd1_win[silver$rd1==z], size=1)
+  }))
+  silver$prob_rd2 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd1[z],0,ifelse(!silver$playin_flag[z],silver$rd2_win[z],1/(1+10^(-1*(silver$team_rating[z]-silver$team_rating[setdiff(which(silver$rd2==silver$rd2[z] & silver$win_rd1),z)])*30.464/400)) ))})
 
-	silver$win_rd2 <- is.element(silver$jbteam, sapply(unique(silver$rd2), function(z) {
-		sample(silver$jbteam[silver$rd2==z], prob=silver$prob_rd2[silver$rd2==z], size=1)
-	}))
-	silver$prob_rd3 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd2[z],0,1/(1+10^(-1*(silver$team_rating[z]-silver$team_rating[setdiff(which(silver$rd3==silver$rd3[z] & silver$win_rd2),z)])*30.464/400)) )})
+  silver$win_rd2 <- is.element(silver$jbteam, sapply(unique(silver$rd2), function(z) {
+    sample(silver$jbteam[silver$rd2==z], prob=silver$prob_rd2[silver$rd2==z], size=1)
+  }))
+  silver$prob_rd3 <- sapply(1:nrow(silver), function(z) {
+    ifelse(
+      !silver$win_rd2[z],
+      0,
 
-	silver$win_rd3 <- is.element(silver$jbteam, sapply(unique(silver$rd3), function(z) {
-		sample(silver$jbteam[silver$rd3==z], prob=silver$prob_rd3[silver$rd3==z], size=1)
-	}))
-	silver$prob_rd4 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd3[z],0,1/(1+10^(-1*(silver$team_rating[z]-silver$team_rating[setdiff(which(silver$rd4==silver$rd4[z] & silver$win_rd3),z)])*30.464/400)) )})
-
-	silver$win_rd4 <- is.element(silver$jbteam, sapply(unique(silver$rd4), function(z) {
-		sample(silver$jbteam[silver$rd4==z], prob=silver$prob_rd4[silver$rd4==z], size=1)
-	}))
-	silver$prob_rd5 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd4[z],0,1/(1+10^(-1*(silver$team_rating[z]-silver$team_rating[setdiff(which(silver$rd5==silver$rd5[z] & silver$win_rd4),z)])*30.464/400)) )})
+      1/(1+10^(-1*(silver$team_rating[z]-silver$team_rating[setdiff(which(silver$rd3==silver$rd3[z] & silver$win_rd2),z)])*30.464/400))
+    )})
 
 
-	silver$win_rd5 <- is.element(silver$jbteam, sapply(unique(silver$rd5), function(z) {
-		sample(silver$jbteam[silver$rd5==z], prob=silver$prob_rd5[silver$rd5==z], size=1)
-	}))
-	silver$prob_rd6 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd5[z],0,1/(1+10^(-1*(silver$team_rating[z]-silver$team_rating[setdiff(which(silver$rd6==silver$rd6[z] & silver$win_rd5),z)])*30.464/400)) )})
+  silver$win_rd3 <- is.element(silver$jbteam, sapply(unique(silver$rd3), function(z) {
+    sample(silver$jbteam[silver$rd3==z], prob=silver$prob_rd3[silver$rd3==z], size=1)
+  }))
+  silver$prob_rd4 <- sapply(1:nrow(silver), function(z) {
+    ifelse(
+      !silver$win_rd3[z],
+      0,
+
+      1/(1+10^(-1*(silver$team_rating[z]-silver$team_rating[setdiff(which(silver$rd4==silver$rd4[z] & silver$win_rd3),z)])*30.464/400))
+    )})
+
+  silver$win_rd4 <- is.element(silver$jbteam, sapply(unique(silver$rd4), function(z) {
+    sample(silver$jbteam[silver$rd4==z], prob=silver$prob_rd4[silver$rd4==z], size=1)
+  }))
+  silver$prob_rd5 <- sapply(1:nrow(silver), function(z) {
+    ifelse(
+      !silver$win_rd4[z],
+      0,
+
+      1/(1+10^(-1*(silver$team_rating[z]-silver$team_rating[setdiff(which(silver$rd5==silver$rd5[z] & silver$win_rd4),z)])*30.464/400))
+    )})
 
 
-	silver$win_rd6 <- is.element(silver$jbteam, sapply(unique(silver$rd6), function(z) {
-		sample(silver$jbteam[silver$rd6==z], prob=silver$prob_rd6[silver$rd6==z], size=1)
-	}))
-	silver$prob_rd7 <- sapply(1:nrow(silver), function(z) {ifelse(!silver$win_rd6[z],0,1/(1+10^(-1*(silver$team_rating[z]-silver$team_rating[setdiff(which(silver$rd7==silver$rd7[z] & silver$win_rd6),z)])*30.464/400)) )})
 
-	silver$win_rd7 <- is.element(silver$jbteam, sapply(unique(silver$rd7), function(z) {
-		sample(silver$jbteam[silver$rd7==z], prob=silver$prob_rd7[silver$rd7==z], size=1)
-	}))
+  silver$win_rd5 <- is.element(silver$jbteam, sapply(unique(silver$rd5), function(z) {
+    sample(silver$jbteam[silver$rd5==z], prob=silver$prob_rd5[silver$rd5==z], size=1)
+  }))
+  silver$prob_rd6 <- sapply(1:nrow(silver), function(z) {
+    ifelse(
+      !silver$win_rd5[z],
+      0,
 
-	# Use this outcome as a possibility - Calculate expected points of that reality
+      1/(1+10^(-1*(silver$team_rating[z]-silver$team_rating[setdiff(which(silver$rd6==silver$rd6[z] & silver$win_rd5),z)])*30.464/400))
+    )})
 
-	pts <- sum(silver$win_rd7*(200+10*as.integer(substr(silver$team_seed,1,2)))*silver$rd7_win +
-	silver$win_rd6*(140+7*as.integer(substr(silver$team_seed,1,2)))*silver$rd6_win +
-	silver$win_rd5*(100+5*as.integer(substr(silver$team_seed,1,2)))*silver$rd5_win +
-	silver$win_rd4*(75+3*as.integer(substr(silver$team_seed,1,2)))*silver$rd4_win +
-	silver$win_rd3*(40+2*as.integer(substr(silver$team_seed,1,2)))*silver$rd3_win +
-	silver$win_rd2*(20+1*as.integer(substr(silver$team_seed,1,2)))*silver$rd2_win +
-	silver$win_rd1*(20+0*as.integer(substr(silver$team_seed,1,2)))*silver$rd1_win*(silver$playin_flag))
 
-	data.frame(rbind(c(silver$jbteam[silver$win_rd1 & silver$playin_flag],
-	  silver$jbteam[silver$win_rd2],
-	  silver$jbteam[silver$win_rd3],
-	  silver$jbteam[silver$win_rd4],
-	  silver$jbteam[silver$win_rd5],
-	  silver$jbteam[silver$win_rd6],
-	  silver$jbteam[silver$win_rd7],pts)))
+  silver$win_rd6 <- is.element(silver$jbteam, sapply(unique(silver$rd6), function(z) {
+    sample(silver$jbteam[silver$rd6==z], prob=silver$prob_rd6[silver$rd6==z], size=1)
+  }))
+  silver$prob_rd7 <- sapply(1:nrow(silver), function(z) {
+    ifelse(
+      !silver$win_rd6[z],
+      0,
+
+      1/(1+10^(-1*(silver$team_rating[z]-silver$team_rating[setdiff(which(silver$rd7==silver$rd7[z] & silver$win_rd6),z)])*30.464/400))
+    )})
+
+  silver$win_rd7 <- is.element(silver$jbteam, sapply(unique(silver$rd7), function(z) {
+    sample(silver$jbteam[silver$rd7==z], prob=silver$prob_rd7[silver$rd7==z], size=1)
+  }))
+
+  # Use this outcome as a possibility - Calculate expected points of that reality
+
+  pts <- sum(silver$win_rd7*(200+10*as.integer(substr(silver$team_seed,1,2)))*silver$rd7_win +
+               silver$win_rd6*(140+7*as.integer(substr(silver$team_seed,1,2)))*silver$rd6_win +
+               silver$win_rd5*(100+5*as.integer(substr(silver$team_seed,1,2)))*silver$rd5_win +
+               silver$win_rd4*(75+3*as.integer(substr(silver$team_seed,1,2)))*silver$rd4_win +
+               silver$win_rd3*(40+2*as.integer(substr(silver$team_seed,1,2)))*silver$rd3_win +
+               silver$win_rd2*(20+1*as.integer(substr(silver$team_seed,1,2)))*silver$rd2_win +
+               silver$win_rd1*(20+0*as.integer(substr(silver$team_seed,1,2)))*silver$rd1_win*(silver$playin_flag))
+
+  data.frame(rbind(c(silver$jbteam[silver$win_rd1 & silver$playin_flag],
+                     silver$jbteam[silver$win_rd2],
+                     silver$jbteam[silver$win_rd3],
+                     silver$jbteam[silver$win_rd4],
+                     silver$jbteam[silver$win_rd5],
+                     silver$jbteam[silver$win_rd6],
+                     silver$jbteam[silver$win_rd7],pts)))
 
 }
 
@@ -160,7 +192,7 @@ tenthousand_old <- do.call(rbind,lapply(1:10000,Simulate_old))
 tenthousand_new <- do.call(rbind,lapply(1:10000,Simulate_new))
 
 teamprobs <- data.frame(team=silver$jbteam, silver=silver$rd7_win)
-param<-4300
+param<-3700
 teamprobs$tenthousand_old <- as.numeric(prop.table(table(tenthousand_old$X67))[match(teamprobs$team,names(table(tenthousand_old$X67)))])
 teamprobs$tenthousand_new <- as.numeric(prop.table(table(tenthousand_new$X67))[match(teamprobs$team,names(table(tenthousand_new$X67)))])
 temp <- prop.table(table(c(tenthousand_old$X67[1:param],tenthousand_new$X67[(param+1):10000])))
