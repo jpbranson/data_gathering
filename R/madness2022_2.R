@@ -323,7 +323,7 @@ print(mytableout,type='html',useViewer=FALSE)
 sink()
 
 tenthousand$X68 <- NULL
-write.csv(tenthousand, row.names=FALSE, file = paste0("data/madness/simulations/sim-", timestamp.file, ".csv"))
+save(tenthousand, file = paste0("data/madness/simulations/sim-", timestamp.file, ".RData"))
 #write.csv(ptsreport, row.names = FALSE, file = '/Users/jbennett/Delta Health Alliance/Research - DHA Team Folder/Madness/ptsreport_firstround.csv')
 
 #write.csv(cbind(round(prop.table(table(tenthousand$first))*100,1),round(prop.table(table(tenthousand$second))*100,1),round(prop.table(table(tenthousand$third))*100,1)),file='/Users/jbennett/Delta Health Alliance/Research - DHA Team Folder/Madness/probs_firstround.csv')

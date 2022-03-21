@@ -14,32 +14,55 @@ library(rvest)
 ```{r}
 
 mad.df <- data.frame(stringsAsFactors = F)
-for (i in seq_along(list.files(path = "data/madness/", pattern = ".html"))) {
-  mad.df <- list.files(path = "data/madness/", pattern = ".html")[i] %>%
+
+jb_files <- list.files(path = "data/madness/", pattern = ".html")[!str_detect(list.files(path = "data/madness/", pattern = ".html"), "madness")]
+for (i in seq_along(jb_files)) {
+  mad.df <- jb_files[i] %>%
     paste0("data/madness/",.) %>%
   read_html() %>%
   html_table() %>%
   pluck(1) %>%
   tail(-2) %>%
-    mutate(name = list.files(path = "data/madness/", pattern = ".html")[i]) %>%
+    mutate(name = jb_files[i],
+           flag = 1) %>%
     bind_rows(mad.df, .)
 }
 
-colnames(mad.df) <- c("name", "prob_first", "prob_second", "prob_third", "points", "rank", "file")
+jpb_files <- list.files(path = "data/madness/", pattern = "madness")
+for (i in seq_along(jpb_files)) {
+  mad.df <- jpb_files[i] %>%
+    paste0("data/madness/",.) %>%
+  read_html() %>%
+  html_table() %>%
+  pluck(1) %>%
+  tail(-2) %>%
+    mutate(name = jpb_files[i],
+           flag = 2) %>%
+    bind_rows(mad.df, .)
+}
+
+colnames(mad.df) <- c("name", "prob_first", "prob_second", "prob_third", "points", "rank", "file", "flag")
   
 
 mad.df.clean <- mad.df %>%
+  #added for windows
+  select(1:8) %>%
   mutate(time = str_replace(file, "X", ""),
          time = str_replace(time, ".html", ""),
+         time = str_replace(time, "madness-", ""),
          time = parse_date_time(time, "%Y.%m.%d.%H.%M.%S") %>% with_tz(tzone = "US/Central")) %>%
   mutate(across(.cols = c("prob_first", "prob_second", "prob_third", "points", "rank"), .fns = as.numeric))
   
 
+
+
 {mad.df.clean %>%
+    filter(flag ==1) %>%
   pivot_longer(cols = c("prob_first", "prob_second", "prob_third", "points", "rank"), names_to = "metric") %>%
   ggplot(aes(x = time, y = value, col = name)) +
   geom_line() +
-  facet_grid(rows = vars(metric), scales = "free_y") } %>% plotly::ggplotly() %>% htmlwidgets::saveWidget(file = "madness_viz.html")
+  facet_grid(rows = vars(metric), scales = "free_y") } %>% plotly::ggplotly() %>% htmlwidgets::saveWidget(file = "madness_viz_jb.html")
+
 ```
 
 ```{r}
@@ -48,5 +71,8 @@ mad.df.clean %>%
   ggplot(aes(x = time, y = value, col = name)) +
   geom_smooth(method = "loess", se =F) +
   facet_grid(rows = vars(metric), scales = "free_y")
+
+mad.df.clean %>%
+  filter(name == "BrooksAnn#2") %>% View()
 ```
 
