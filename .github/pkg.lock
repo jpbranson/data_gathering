@@ -402,7 +402,7 @@
     {
       "ref": "knitr",
       "package": "knitr",
-      "version": "1.37",
+      "version": "1.38",
       "type": "standard",
       "direct": false,
       "binary": false,
@@ -415,15 +415,14 @@
         "RemoteRef": "knitr",
         "RemoteRepos": "https://cloud.r-project.org",
         "RemotePkgPlatform": "source",
-        "RemoteSha": "1.37"
+        "RemoteSha": "1.38"
       },
-      "sources": ["https://cloud.r-project.org/src/contrib/knitr_1.37.tar.gz", "https://cloud.r-project.org/src/contrib/Archive/knitr_1.37.tar.gz"],
-      "target": "src/contrib/knitr_1.37.tar.gz",
+      "sources": ["https://cloud.r-project.org/src/contrib/knitr_1.38.tar.gz", "https://cloud.r-project.org/src/contrib/Archive/knitr_1.38.tar.gz"],
+      "target": "src/contrib/knitr_1.38.tar.gz",
       "platform": "source",
       "rversion": "*",
       "directpkg": false,
       "license": "GPL",
-      "sha256": "39cd2a4848baebbe7fa0c0ab8200179690fb5b9190f0c1688d987c38363ad763",
       "filesize": 895567,
       "dep_types": ["Depends", "Imports", "LinkingTo"],
       "params": [],
