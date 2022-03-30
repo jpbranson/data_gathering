@@ -433,7 +433,7 @@
     {
       "ref": "magrittr",
       "package": "magrittr",
-      "version": "2.0.2",
+      "version": "2.0.3",
       "type": "standard",
       "direct": false,
       "binary": false,
@@ -446,15 +446,14 @@
         "RemoteRef": "magrittr",
         "RemoteRepos": "https://cloud.r-project.org",
         "RemotePkgPlatform": "source",
-        "RemoteSha": "2.0.2"
+        "RemoteSha": "2.0.3"
       },
-      "sources": ["https://cloud.r-project.org/src/contrib/magrittr_2.0.2.tar.gz", "https://cloud.r-project.org/src/contrib/Archive/magrittr_2.0.2.tar.gz"],
-      "target": "src/contrib/magrittr_2.0.2.tar.gz",
+      "sources": ["https://cloud.r-project.org/src/contrib/magrittr_2.0.3.tar.gz", "https://cloud.r-project.org/src/contrib/Archive/magrittr_2.0.3.tar.gz"],
+      "target": "src/contrib/magrittr_2.0.3.tar.gz",
       "platform": "source",
       "rversion": "*",
       "directpkg": false,
       "license": "MIT + file LICENSE",
-      "sha256": "7be6fd0d0da75b92d8bad0136076da96260ee84bf639ef632a24668acdc163a6",
       "filesize": 267039,
       "dep_types": ["Depends", "Imports", "LinkingTo"],
       "params": [],
