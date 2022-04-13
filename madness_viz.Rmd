@@ -57,11 +57,11 @@ mad.df.clean <- mad.df %>%
 
 
 {mad.df.clean %>%
-    filter(flag ==1) %>%
+    filter(flag ==2) %>%
   pivot_longer(cols = c("prob_first", "prob_second", "prob_third", "points", "rank"), names_to = "metric") %>%
   ggplot(aes(x = time, y = value, col = name)) +
   geom_line() +
-  facet_grid(rows = vars(metric), scales = "free_y") } %>% plotly::ggplotly() %>% htmlwidgets::saveWidget(file = "madness_viz_jb.html")
+  facet_grid(rows = vars(metric), scales = "free_y") } %>% plotly::ggplotly() %>% htmlwidgets::saveWidget(file = "madness_viz_jpb.html")
 
 ```
 
